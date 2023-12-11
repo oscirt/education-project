@@ -1,4 +1,4 @@
-package ru.mts;
+package ru.mts.model;
 
 /**
  * {@link Product} предназначен для описания товара
@@ -16,7 +16,7 @@ public class Product {
     // Скидка на товар
     private double discount;
 
-    Product(int count, double cost, double discount) {
+    public Product(int count, double cost, double discount) {
         this.count = count;
         this.cost = cost;
         this.discount = discount;
