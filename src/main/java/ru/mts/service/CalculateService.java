@@ -8,7 +8,7 @@ import java.math.RoundingMode;
 
 public class CalculateService {
 
-    public CalculatedSum calculate(Product product) {
+    public static CalculatedSum calculate(Product product) {
         double sumWithoutDiscount = product.getCost() * product.getCount();
         double sumWithDiscount = sumWithoutDiscount * (100 - product.getDiscount()) / 100;
         return new CalculatedSum(
