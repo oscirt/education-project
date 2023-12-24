@@ -12,7 +12,6 @@ public class Main {
 
         createAnimalService.createAnimals();
         createAnimalServiceImpl.createAnimals();
-        createAnimalServiceImpl.createAnimalsNumber(5);
-        createAnimalServiceImpl.createAnimalsNumber(5L);
+        createAnimalServiceImpl.createAnimals(10);
     }
 }
