@@ -1,17 +1,28 @@
 package ru.mts;
 
+import ru.mts.model.animals.Animal;
 import ru.mts.service.CreateAnimalServiceImpl;
-import ru.mts.service.DefaultCreateAnimalService;
-import ru.mts.service.interfaces.CreateAnimalService;
+import ru.mts.service.SearchServiceImpl;
+import ru.mts.service.interfaces.SearchService;
+
+import java.util.Arrays;
 
 public class Main {
 
     public static void main(String[] args) {
-        CreateAnimalService createAnimalService = new DefaultCreateAnimalService();
-        CreateAnimalServiceImpl createAnimalServiceImpl = new CreateAnimalServiceImpl();
+        CreateAnimalServiceImpl createAnimalService = new CreateAnimalServiceImpl();
+        SearchService searchService = new SearchServiceImpl();
+        Animal[] animals = createAnimalService.createAnimals();
 
-        createAnimalService.createAnimals();
-        createAnimalServiceImpl.createAnimals();
-        createAnimalServiceImpl.createAnimals(10);
+        System.out.println("Leap year names:");
+        System.out.println(Arrays.toString(searchService.findLeapYearNames(animals)));
+        System.out.println();
+
+        System.out.println("Older animal:");
+        System.out.println(Arrays.toString(searchService.findOlderAnimal(animals, 10)));
+        System.out.println();
+
+        System.out.println("Duplicate animals:");
+        searchService.findDuplicate(animals);
     }
 }
