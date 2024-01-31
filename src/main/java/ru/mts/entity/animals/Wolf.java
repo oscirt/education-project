@@ -1,13 +1,13 @@
-package ru.mts.model.animals;
+package ru.mts.entity.animals;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 
-public class Cat extends Pet {
+public class Wolf extends Predator {
 
-    public Cat(String breed, String name, BigDecimal cost, String character, LocalDate localDate) {
-        super(breed, name, cost, character, localDate);
+    public Wolf(String breed, String name, BigDecimal cost, String character, LocalDate birthDate) {
+        super(breed, name, cost, character, birthDate);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class Cat extends Pet {
 
     @Override
     public String toString() {
-        return "Cat{" +
+        return "Wolf{" +
                 "breed='" + breed + '\'' +
                 ", name='" + name + '\'' +
                 ", cost=" + cost +

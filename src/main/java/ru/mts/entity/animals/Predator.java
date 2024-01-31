@@ -1,11 +1,11 @@
-package ru.mts.model.animals;
+package ru.mts.entity.animals;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public abstract class Pet extends AbstractAnimal {
+public abstract class Predator extends AbstractAnimal {
 
-    public Pet(String breed, String name, BigDecimal cost, String character, LocalDate birthDate) {
+    public Predator(String breed, String name, BigDecimal cost, String character, LocalDate birthDate) {
         this.breed = breed;
         this.name = name;
         this.cost = cost;

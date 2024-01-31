@@ -1,9 +1,11 @@
 package ru.mts.service;
 
-import ru.mts.model.animals.Animal;
+import ru.mts.entity.animals.Animal;
 import ru.mts.service.interfaces.SearchService;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchServiceImpl implements SearchService {
 
@@ -57,13 +59,26 @@ public class SearchServiceImpl implements SearchService {
      * @param animals массив животных
      */
     @Override
-    public void findDuplicate(Animal[] animals) {
+    public List<Animal> findDuplicate(Animal[] animals) {
+        List<Animal> resultAnimals = new ArrayList<>();
+
         for (int i = 0; i < animals.length; i++) {
             for (int j = i + 1; j < animals.length; j++) {
-                if (animals[i].equals(animals[j]) && i != j) {
-                    System.out.printf("Duplicate at index %d and %d: %s\n", i, j, animals[i]);
+                if (animals[i].equals(animals[j]) &&
+                        i != j &&
+                        !resultAnimals.contains(animals[i]) &&
+                        !resultAnimals.contains(animals[j])) {
+                    resultAnimals.add(animals[i]);
                 }
             }
         }
+
+        return resultAnimals;
+    }
+
+    @Override
+    public void printDuplicate(Animal[] animals) {
+        List<Animal> duplicateAnimals = findDuplicate(animals);
+        duplicateAnimals.forEach(animal -> System.out.printf("Duplicate animal: %s\n", animal));
     }
 }

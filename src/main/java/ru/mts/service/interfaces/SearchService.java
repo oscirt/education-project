@@ -1,6 +1,8 @@
 package ru.mts.service.interfaces;
 
-import ru.mts.model.animals.Animal;
+import ru.mts.entity.animals.Animal;
+
+import java.util.List;
 
 public interface SearchService {
 
@@ -23,5 +25,11 @@ public interface SearchService {
      * Ищет всех повторяющихся животных в массиве и выводит их в поток вывода
      * @param animals массив животных
      */
-    void findDuplicate(Animal[] animals);
+    List<Animal> findDuplicate(Animal[] animals);
+
+    /**
+     * Выводит в консоль всех повторяющихся животных
+     * @param animals массив животных
+     */
+    void printDuplicate(Animal[] animals);
 }

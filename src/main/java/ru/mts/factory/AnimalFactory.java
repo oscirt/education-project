@@ -1,6 +1,6 @@
 package ru.mts.factory;
 
-import ru.mts.model.animals.*;
+import ru.mts.entity.animals.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

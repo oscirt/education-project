@@ -1,4 +1,4 @@
-package ru.mts.model;
+package ru.mts.entity;
 
 /**
  * {@link Product} предназначен для описания товара
