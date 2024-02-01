@@ -1,14 +1,15 @@
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import ru.mts.model.CalculatedSum;
-import ru.mts.model.Product;
+import ru.mts.entity.CalculatedSum;
+import ru.mts.entity.Product;
 import ru.mts.service.CalculateService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CalculateServiceTest {
 
-
     @Test
+    @DisplayName("Проверка сервиса счёта")
     public void calculateServiceCheck() {
         CalculatedSum sum;
 

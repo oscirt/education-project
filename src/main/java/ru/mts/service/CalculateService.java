@@ -1,7 +1,7 @@
 package ru.mts.service;
 
-import ru.mts.model.CalculatedSum;
-import ru.mts.model.Product;
+import ru.mts.entity.CalculatedSum;
+import ru.mts.entity.Product;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

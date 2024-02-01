@@ -1,4 +1,4 @@
-package ru.mts.model;
+package ru.mts.entity;
 
 import java.math.BigDecimal;
 

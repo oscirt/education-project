@@ -1,7 +1,7 @@
 package ru.mts.service.interfaces;
 
 import ru.mts.factory.AnimalFactory;
-import ru.mts.model.animals.*;
+import ru.mts.entity.animals.*;
 
 import java.util.Random;
 

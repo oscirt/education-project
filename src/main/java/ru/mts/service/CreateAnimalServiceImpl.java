@@ -1,6 +1,6 @@
 package ru.mts.service;
 
-import ru.mts.model.animals.Animal;
+import ru.mts.entity.animals.Animal;
 import ru.mts.service.interfaces.CreateAnimalService;
 
 public class CreateAnimalServiceImpl implements CreateAnimalService {

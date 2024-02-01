@@ -1,4 +1,4 @@
-package ru.mts.model.animals;
+package ru.mts.entity.animals;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

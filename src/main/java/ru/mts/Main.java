@@ -1,6 +1,6 @@
 package ru.mts;
 
-import ru.mts.model.animals.Animal;
+import ru.mts.entity.animals.Animal;
 import ru.mts.service.CreateAnimalServiceImpl;
 import ru.mts.service.SearchServiceImpl;
 import ru.mts.service.interfaces.SearchService;
@@ -23,6 +23,6 @@ public class Main {
         System.out.println();
 
         System.out.println("Duplicate animals:");
-        searchService.findDuplicate(animals);
+        searchService.printDuplicate(animals);
     }
 }
