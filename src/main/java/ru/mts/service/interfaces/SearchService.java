@@ -6,11 +6,6 @@ import java.util.List;
 
 public interface SearchService {
 
-    /**
-     * Ищет имена всех животных, которые родились в високосный год
-     * @param animals массив животных
-     * @return массив имен животных
-     */
     String[] findLeapYearNames(Animal[] animals);
 
     /**

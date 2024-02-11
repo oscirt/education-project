@@ -5,6 +5,7 @@ import ru.mts.entity.animals.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.Random;
 
 public class AnimalFactory {
 
@@ -14,42 +15,59 @@ public class AnimalFactory {
      * @return созданное животное
      */
     public static Animal createAnimal(int type) {
+        Random random = new Random();
         switch (type) {
             case 0:
                 return new Cat(
-                        "Порода кошки",
-                        "Кошка",
-                        BigDecimal.valueOf(100)
-                                .setScale(2, RoundingMode.HALF_UP),
-                        "Характер кошки",
-                        LocalDate.of(2000, 10, 10)
+                    "Порода кошки",
+                    "Кошка",
+                    BigDecimal.valueOf(random.nextInt(10000))
+                            .setScale(2, RoundingMode.HALF_UP),
+                    "Характер кошки",
+                    LocalDate.of(
+                            random.nextInt(20) + 2000,
+                            random.nextInt(12) + 1,
+                            random.nextInt(28) + 1
+                    )
                 );
             case 1:
                 return new Dog(
-                        "Порода собаки",
-                        "Собака",
-                        BigDecimal.valueOf(500)
-                                .setScale(2, RoundingMode.HALF_UP),
-                        "Характер Собаки",
-                        LocalDate.of(2010, 5, 18)
+                    "Порода собаки",
+                    "Собака",
+                    BigDecimal.valueOf(random.nextInt(10000))
+                            .setScale(2, RoundingMode.HALF_UP),
+                    "Характер Собаки",
+                    LocalDate.of(
+                            random.nextInt(20) + 2000,
+                            random.nextInt(12) + 1,
+                            random.nextInt(28) + 1
+                    )
                 );
             case 2:
                 return new Shark(
-                        "Порода акулы",
-                        "Акула",
-                        BigDecimal.valueOf(100000)
-                                .setScale(2, RoundingMode.HALF_UP),
-                        "Характер акулы",
-                        LocalDate.of(2030, 8, 20)
+                    "Порода акулы",
+                    "Акула",
+                    BigDecimal.valueOf(random.nextInt(100000))
+                            .setScale(2, RoundingMode.HALF_UP),
+                    "Характер акулы",
+                    LocalDate.of(
+                            random.nextInt(20) + 2000,
+                            random.nextInt(12) + 1,
+                            random.nextInt(28) + 1
+                    )
                 );
             case 3:
                 return new Wolf(
                         "Порода волка",
                         "Волк",
-                        BigDecimal.valueOf(1000)
+                        BigDecimal.valueOf(random.nextInt(100000))
                                 .setScale(2, RoundingMode.HALF_UP),
                         "Характер волка",
-                        LocalDate.of(2020, 4, 9)
+                        LocalDate.of(
+                                random.nextInt(20) + 2000,
+                                random.nextInt(12) + 1,
+                                random.nextInt(28) + 1
+                        )
                 );
         }
 

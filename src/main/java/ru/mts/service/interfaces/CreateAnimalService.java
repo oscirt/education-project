@@ -16,6 +16,10 @@ public interface CreateAnimalService {
         return AnimalFactory.createAnimal(random.nextInt(4));
     }
 
+    default Animal generateAnimal(AnimalType type) {
+        return AnimalFactory.createAnimal(type.ordinal());
+    }
+
     /**
      * Создает 10 животных случайного типа
      * @return 10 животных случайного типа
