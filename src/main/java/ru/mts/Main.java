@@ -1,28 +1,20 @@
 package ru.mts;
 
-import ru.mts.entity.animals.Animal;
-import ru.mts.service.CreateAnimalServiceImpl;
-import ru.mts.service.SearchServiceImpl;
-import ru.mts.service.interfaces.SearchService;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ru.mts.config.ApplicationConfig;
+import ru.mts.repository.interfaces.AnimalsRepository;
 
 import java.util.Arrays;
 
 public class Main {
 
     public static void main(String[] args) {
-        CreateAnimalServiceImpl createAnimalService = new CreateAnimalServiceImpl();
-        SearchService searchService = new SearchServiceImpl();
-        Animal[] animals = createAnimalService.createAnimals();
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+        AnimalsRepository animalsRepository = applicationContext.getBean(AnimalsRepository.class);
 
-        System.out.println("Leap year names:");
-        System.out.println(Arrays.toString(searchService.findLeapYearNames(animals)));
-        System.out.println();
-
-        System.out.println("Older animal:");
-        System.out.println(Arrays.toString(searchService.findOlderAnimal(animals, 10)));
-        System.out.println();
-
-        System.out.println("Duplicate animals:");
-        searchService.printDuplicate(animals);
+        System.out.printf("findLeapYearNames: \n%s\n\n", Arrays.toString(animalsRepository.findLeapYearNames()));
+        System.out.printf("findOlderAnimal(5): \n%s\n\n", Arrays.toString(animalsRepository.findOlderAnimal(5)));
+        System.out.printf("findDuplicate: \n%s\n\n", animalsRepository.findDuplicate());
+        animalsRepository.printDuplicate();
     }
 }
