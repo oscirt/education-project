@@ -1,0 +1,21 @@
+animals:
+  dogNames:
+        - DogName1
+        - DogName2
+        - DogName3
+        - DogName4
+  catNames:
+      - CatName1
+      - CatName2
+      - CatName3
+      - CatName4
+  sharkNames:
+      - SharkName1
+      - SharkName2
+      - SharkName3
+      - SharkName4
+  wolfNames:
+      - WolfName1
+      - WolfName2
+      - WolfName3
+      - WolfName4
