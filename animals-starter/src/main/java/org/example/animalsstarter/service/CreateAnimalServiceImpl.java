@@ -13,7 +13,7 @@ import java.util.Random;
 @Scope("prototype")
 public class CreateAnimalServiceImpl implements CreateAnimalService {
 
-    public AnimalType animalType;
+    private AnimalType animalType;
 
     private final AnimalFactory animalFactory;
 
