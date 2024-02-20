@@ -3,7 +3,6 @@ package org.example.animalsstarter.repository;
 import org.example.animalsstarter.entity.animals.Animal;
 import org.example.animalsstarter.repository.interfaces.AnimalsRepository;
 import org.example.animalsstarter.service.interfaces.CreateAnimalService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
@@ -18,7 +17,7 @@ public class AnimalsRepositoryImpl implements AnimalsRepository {
 
     private final CreateAnimalService createAnimalService;
 
-    public AnimalsRepositoryImpl(@Autowired CreateAnimalService createAnimalService) {
+    public AnimalsRepositoryImpl(CreateAnimalService createAnimalService) {
         this.createAnimalService = createAnimalService;
     }
 

@@ -1,7 +1,6 @@
 package org.example.application.scheduler;
 
 import org.example.animalsstarter.repository.interfaces.AnimalsRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +11,7 @@ public class AnimalsRepositoryScheduler {
 
     private final AnimalsRepository animalsRepository;
 
-    public AnimalsRepositoryScheduler(@Autowired AnimalsRepository animalsRepository) {
+    public AnimalsRepositoryScheduler(AnimalsRepository animalsRepository) {
         this.animalsRepository = animalsRepository;
     }
 

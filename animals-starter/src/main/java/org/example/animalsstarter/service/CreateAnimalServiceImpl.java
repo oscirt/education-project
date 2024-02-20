@@ -4,7 +4,6 @@ import org.example.animalsstarter.entity.animals.Animal;
 import org.example.animalsstarter.entity.animals.AnimalType;
 import org.example.animalsstarter.factory.AnimalFactory;
 import org.example.animalsstarter.service.interfaces.CreateAnimalService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +13,11 @@ import java.util.Random;
 @Scope("prototype")
 public class CreateAnimalServiceImpl implements CreateAnimalService {
 
-    private AnimalType animalType;
+    public AnimalType animalType;
 
     private final AnimalFactory animalFactory;
 
-    public CreateAnimalServiceImpl(@Autowired AnimalFactory animalFactory) {
+    public CreateAnimalServiceImpl(AnimalFactory animalFactory) {
         this.animalFactory = animalFactory;
     }
 
@@ -48,7 +47,7 @@ public class CreateAnimalServiceImpl implements CreateAnimalService {
     }
 
     public void initAnimalType() {
-        switch (new Random().nextInt() % 4) {
+        switch (new Random().nextInt(4)) {
             case 0:
                 animalType = AnimalType.CAT;
                 break;

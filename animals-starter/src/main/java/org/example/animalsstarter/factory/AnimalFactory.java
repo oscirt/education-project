@@ -2,7 +2,6 @@ package org.example.animalsstarter.factory;
 
 import org.example.animalsstarter.config.AnimalsProperties;
 import org.example.animalsstarter.entity.animals.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +16,7 @@ public class AnimalFactory {
 
     private AnimalsProperties animalsProperties;
 
-    public AnimalFactory(@Autowired AnimalsProperties animalsProperties) {
+    public AnimalFactory(AnimalsProperties animalsProperties) {
         this.animalsProperties = animalsProperties;
     }
 
@@ -32,7 +31,7 @@ public class AnimalFactory {
             case 0:
                 return new Cat(
                     "Порода кошки",
-                    animalsProperties.getCatNames().get(random.nextInt(4)),
+                    animalsProperties.getCatNames().get(random.nextInt(animalsProperties.getCatNames().size())),
                     BigDecimal.valueOf(random.nextInt(10000))
                             .setScale(2, RoundingMode.HALF_UP),
                     "Характер кошки",
@@ -45,7 +44,7 @@ public class AnimalFactory {
             case 1:
                 return new Dog(
                     "Порода собаки",
-                    animalsProperties.getDogNames().get(random.nextInt(4)),
+                    animalsProperties.getDogNames().get(random.nextInt(animalsProperties.getDogNames().size())),
                     BigDecimal.valueOf(random.nextInt(10000))
                             .setScale(2, RoundingMode.HALF_UP),
                     "Характер Собаки",
@@ -58,7 +57,7 @@ public class AnimalFactory {
             case 2:
                 return new Shark(
                     "Порода акулы",
-                    animalsProperties.getSharkNames().get(random.nextInt(4)),
+                    animalsProperties.getSharkNames().get(random.nextInt(animalsProperties.getSharkNames().size())),
                     BigDecimal.valueOf(random.nextInt(100000))
                             .setScale(2, RoundingMode.HALF_UP),
                     "Характер акулы",
@@ -71,7 +70,7 @@ public class AnimalFactory {
             case 3:
                 return new Wolf(
                         "Порода волка",
-                        animalsProperties.getWolfNames().get(random.nextInt(4)),
+                        animalsProperties.getWolfNames().get(random.nextInt(animalsProperties.getWolfNames().size())),
                         BigDecimal.valueOf(random.nextInt(100000))
                                 .setScale(2, RoundingMode.HALF_UP),
                         "Характер волка",
