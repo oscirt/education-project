@@ -1,9 +1,9 @@
 package org.example.animalsstarter;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 
-@ContextConfiguration
+@SpringBootTest
 class AnimalsStarterApplicationTests {
 
     @Test
