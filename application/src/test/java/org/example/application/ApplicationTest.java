@@ -1,10 +1,10 @@
-package org.example.animalsstarter;
+package org.example.application;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AnimalsStarterApplicationTests {
+class ApplicationTest {
 
     @Test
     void contextLoads() {

@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class AnimalsAppTests {
+public class AnimalsAppTest {
 
     @Autowired
     private AnimalsRepository animalsRepository;

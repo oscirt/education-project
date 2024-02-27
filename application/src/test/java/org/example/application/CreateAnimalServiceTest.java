@@ -1,10 +1,10 @@
-package org.example.animalsstarter;
+package org.example.application;
 
 import org.example.animalsstarter.config.AnimalsProperties;
-import org.example.animalsstarter.config.AnimalsStarterTestConfig;
 import org.example.animalsstarter.entity.animals.Animal;
 import org.example.animalsstarter.entity.animals.AnimalType;
 import org.example.animalsstarter.service.interfaces.CreateAnimalService;
+import org.example.application.config.AnimalsTestConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,9 +12,9 @@ import org.springframework.test.context.ActiveProfiles;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(classes = AnimalsStarterTestConfig.class)
+@SpringBootTest(classes = AnimalsTestConfig.class)
 @ActiveProfiles("test")
-public class AnimalStarterTests {
+public class CreateAnimalServiceTest {
 
     @Autowired
     private AnimalsProperties animalsProperties;

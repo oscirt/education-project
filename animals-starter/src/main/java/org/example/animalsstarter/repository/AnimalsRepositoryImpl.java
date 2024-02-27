@@ -22,7 +22,7 @@ public class AnimalsRepositoryImpl implements AnimalsRepository {
     }
 
     @PostConstruct
-    private void initAnimalArray() {
+    public void initAnimalArray() {
         animals = createAnimalService.createAnimals();
     }
 
