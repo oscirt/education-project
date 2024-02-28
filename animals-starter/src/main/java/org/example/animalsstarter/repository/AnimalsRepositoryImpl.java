@@ -7,13 +7,13 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.Map.Entry;
 
 @Repository
 public class AnimalsRepositoryImpl implements AnimalsRepository {
 
-    private Animal[] animals;
+    private Map<String, List<Animal>> animals;
 
     private final CreateAnimalService createAnimalService;
 
@@ -28,70 +28,109 @@ public class AnimalsRepositoryImpl implements AnimalsRepository {
 
     /**
      * Ищет имена всех животных, которые родились в високосный год
-     * @return массив имен животных
+     * @return Map с ключом, являющимся строкой с типом животного и его именем,
+     * и со значением, являющимся датой рождения животного
      */
     @Override
-    public String[] findLeapYearNames() {
-        int length = 0;
-        for (Animal animal : animals) {
-            if (animal.getBirthDate().isLeapYear()) {
-                length++;
+    public Map<String, LocalDate> findLeapYearNames() {
+
+        Map<String, LocalDate> resultMap = new HashMap<>();
+
+        for (Entry<String, List<Animal>> entry : animals.entrySet()) {
+            for (Animal animal : entry.getValue()) {
+                if (animal.getBirthDate().isLeapYear()) {
+                    resultMap.put(
+                            String.format("%s %s", entry.getKey(), animal.getName()),
+                            animal.getBirthDate()
+                    );
+                }
             }
         }
-        String[] names = new String[length];
-        for (int i = 0, j = 0; i < animals.length; i++) {
-            if (animals[i].getBirthDate().isLeapYear()) {
-                names[j++] = animals[i].getName();
-            }
-        }
-        return names;
+
+        return resultMap;
     }
 
 
     /**
      * Ищет всех животных, которые старше N лет
      * @param age граничный возраст
-     * @return массив животных, старше N лет
+     * @return Map с ключом, являющимся объектом животного,
+     * и со значением, являющимся возрастом животного
      */
     @Override
-    public Animal[] findOlderAnimal(int age) {
-        int length = 0;
-        for (Animal animal : animals) {
-            if (LocalDate.now().getYear() - animal.getBirthDate().getYear() > age) {
-                length++;
+    public Map<Animal, Integer> findOlderAnimal(int age) {
+
+        Map<Animal, Integer> resultMap = new HashMap<>();
+
+        int maxAnimalYear = Integer.MIN_VALUE;
+        Animal oldestAnimal = null;
+
+        for (Entry<String, List<Animal>> entry : animals.entrySet()) {
+            for (Animal animal : entry.getValue()) {
+                if (LocalDate.now().getYear() - animal.getBirthDate().getYear() > age) {
+                    resultMap.put(
+                            animal,
+                            animal.getBirthDate().getYear()
+                    );
+                }
+                if (LocalDate.now().getYear() - animal.getBirthDate().getYear() > maxAnimalYear) {
+                    maxAnimalYear = LocalDate.now().getYear() - animal.getBirthDate().getYear();
+                    oldestAnimal = animal;
+                }
             }
         }
-        Animal[] olderAnimals = new Animal[length];
-        for (int i = 0, j = 0; i < animals.length; i++) {
-            if (LocalDate.now().getYear() - animals[i].getBirthDate().getYear() > age) {
-                olderAnimals[j++] = animals[i];
-            }
+
+        if (resultMap.isEmpty()) {
+            resultMap.put(
+                    oldestAnimal,
+                    maxAnimalYear
+            );
         }
-        return olderAnimals;
+
+        return resultMap;
     }
 
 
 
     /**
      * Ищет всех повторяющихся животных и возвращает массив дубликатов
-     * @return массив дубликатов
+     * @return Map с ключом, являющимся типом животных
+     * и значением, являющимся количеством дубликатов
      */
     @Override
-    public List<Animal> findDuplicate() {
-        List<Animal> resultAnimals = new ArrayList<>();
+    public Map<String, Integer> findDuplicate() {
 
-        for (int i = 0; i < animals.length; i++) {
-            for (int j = i + 1; j < animals.length; j++) {
-                if (animals[i].equals(animals[j]) &&
-                        i != j &&
-                        !resultAnimals.contains(animals[i]) &&
-                        !resultAnimals.contains(animals[j])) {
-                    resultAnimals.add(animals[i]);
+        Map<String, Integer> resultMap = new HashMap<>();
+
+        Set<Animal> uniqueAnimals = new HashSet<>();
+
+        int counter;
+
+        for (Entry<String, List<Animal>> entry : animals.entrySet()) {
+            counter = 0;
+
+            List<Animal> animalList = entry.getValue();
+
+            for (int i = 0; i < animalList.size(); i++) {
+                for (int j = i + 1; j < animalList.size(); j++) {
+                    if (animalList.get(i).equals(animalList.get(j)) &&
+                            i != j &&
+                            !uniqueAnimals.contains(animalList.get(i))) {
+                        uniqueAnimals.add(animalList.get(i));
+                        counter++;
+                    }
                 }
+            }
+
+            if (counter != 0) {
+                resultMap.put(
+                        entry.getKey(),
+                        counter
+                );
             }
         }
 
-        return resultAnimals;
+        return resultMap;
     }
 
     /**
@@ -99,7 +138,10 @@ public class AnimalsRepositoryImpl implements AnimalsRepository {
      */
     @Override
     public void printDuplicate() {
-        List<Animal> duplicateAnimals = findDuplicate();
-        duplicateAnimals.forEach(animal -> System.out.printf("Duplicate animal: %s\n", animal));
+        Map<String, Integer> duplicateAnimals = findDuplicate();
+
+        for (Entry<String, Integer> entry : duplicateAnimals.entrySet()) {
+            System.out.printf("%s=%d\n", entry.getKey(), entry.getValue());
+        }
     }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface SearchService {
 
-    String[] findLeapYearNames(Animal[] animals);
+    List<String> findLeapYearNames(List<Animal> animals);
 
     /**
      * Ищет всех животных, которые старше N лет
@@ -14,17 +14,17 @@ public interface SearchService {
      * @param age граничный возраст
      * @return массив животных
      */
-    Animal[] findOlderAnimal(Animal[] animals, int age);
+    List<Animal> findOlderAnimal(List<Animal> animals, int age);
 
     /**
      * Ищет всех повторяющихся животных в массиве и выводит их в поток вывода
      * @param animals массив животных
      */
-    List<Animal> findDuplicate(Animal[] animals);
+    List<Animal> findDuplicate(List<Animal> animals);
 
     /**
      * Выводит в консоль всех повторяющихся животных
      * @param animals массив животных
      */
-    void printDuplicate(Animal[] animals);
+    void printDuplicate(List<Animal> animals);
 }

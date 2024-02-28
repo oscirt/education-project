@@ -3,9 +3,10 @@ package org.example.animalsstarter.service.interfaces;
 import org.example.animalsstarter.entity.animals.Animal;
 import org.example.animalsstarter.entity.animals.AnimalType;
 
+import java.util.List;
+import java.util.Map;
+
 public interface CreateAnimalService {
-
-
 
     /**
      * Генерирует животное случайного типа
@@ -19,5 +20,5 @@ public interface CreateAnimalService {
      * Создает 10 животных случайного типа
      * @return 10 животных случайного типа
      */
-    Animal[] createAnimals();
+    Map<String, List<Animal>> createAnimals();
 }

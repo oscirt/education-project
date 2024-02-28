@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDate;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -23,22 +25,24 @@ public class AnimalsAppTest {
 
     @Test
     public void findOlderAnimalTest() {
-        Animal[] animals = animalsRepository.findOlderAnimal(5);
+        Map<Animal, Integer> animals = animalsRepository.findOlderAnimal(5);
         int currentYear = LocalDate.now().getYear();
-        for (Animal animal : animals) {
-            assertTrue(currentYear - animal.getBirthDate().getYear() >= 5);
+        for (Entry<Animal, Integer> entry : animals.entrySet()) {
+            assertTrue(currentYear - entry.getKey().getBirthDate().getYear() >= 5);
+            assertTrue(entry.getValue() >= 5);
         }
     }
 
     @Test
     public void findLeapYearNamesTest() {
-        String[] names = animalsRepository.findLeapYearNames();
-        for (String name : names) {
+        Map<String, LocalDate> names = animalsRepository.findLeapYearNames();
+        for (String name : names.keySet()) {
+            String animalName = name.substring(name.indexOf(' '));
             assertTrue(
-                    animalsProperties.getCatNames().contains(name) ||
-                    animalsProperties.getDogNames().contains(name) ||
-                    animalsProperties.getSharkNames().contains(name) ||
-                    animalsProperties.getWolfNames().contains(name)
+                    animalsProperties.getCatNames().contains(animalName) ||
+                            animalsProperties.getDogNames().contains(animalName) ||
+                            animalsProperties.getSharkNames().contains(animalName) ||
+                            animalsProperties.getWolfNames().contains(animalName)
             );
         }
     }

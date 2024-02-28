@@ -1,6 +1,5 @@
 package org.example.application;
 
-import org.example.animalsstarter.entity.animals.Animal;
 import org.example.animalsstarter.entity.animals.Shark;
 import org.example.animalsstarter.repository.AnimalsRepositoryImpl;
 import org.example.animalsstarter.service.interfaces.CreateAnimalService;
@@ -13,6 +12,8 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -31,29 +32,33 @@ public class AnimalsRepositoryTest {
 
     @BeforeEach
     public void init() {
-        when(createAnimalService.createAnimals()).thenReturn(new Animal[] {
-                new Shark(
-                        "Akula",
-                        "Akula",
-                        BigDecimal.valueOf(155L),
-                        "Akula",
-                        LocalDate.of(2023, 5, 13)
-                ),
-                new Shark(
-                        "Akula",
-                        "Akula",
-                        BigDecimal.valueOf(155L),
-                        "Akula",
-                        LocalDate.of(2023, 5, 13)
-                ),
-                new Shark(
-                        "Akulaa",
-                        "Akulaa",
-                        BigDecimal.valueOf(1555L),
-                        "Akulaa",
-                        LocalDate.of(2015, 4, 12)
+        when(createAnimalService.createAnimals()).thenReturn(Map.of(
+                "Shark",
+                List.of(
+                    new Shark(
+                            "Akula",
+                            "Akula",
+                            BigDecimal.valueOf(155L),
+                            "Akula",
+                            LocalDate.of(2023, 5, 13)
+                    ),
+                    new Shark(
+                            "Akula",
+                            "Akula",
+                            BigDecimal.valueOf(155L),
+                            "Akula",
+                            LocalDate.of(2023, 5, 13)
+                    ),
+                    new Shark(
+                            "Akulaa",
+                            "Akulaa",
+                            BigDecimal.valueOf(1555L),
+                            "Akulaa",
+                            LocalDate.of(2015, 4, 12)
+                    )
                 )
-        });
+            )
+        );
 
         animalsRepository.initAnimalArray();
     }
@@ -66,7 +71,7 @@ public class AnimalsRepositoryTest {
 
     @Test
     public void repositoryFindOlderAnimal() {
-        assertEquals(1, animalsRepository.findOlderAnimal(5).length);
+        assertEquals(1, animalsRepository.findOlderAnimal(5).size());
         verify(createAnimalService).createAnimals();
     }
 }
