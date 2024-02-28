@@ -1,11 +1,11 @@
-package org.example.animalsstarter;
+package org.example.application;
 
-import org.junit.jupiter.api.*;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.example.animalsstarter.entity.animals.*;
 import org.example.animalsstarter.service.SearchServiceImpl;
 import org.example.animalsstarter.service.interfaces.SearchService;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

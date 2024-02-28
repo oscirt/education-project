@@ -1,10 +1,10 @@
-package org.example.animalsstarter;
+package org.example.application;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.example.animalsstarter.entity.CalculatedSum;
 import org.example.animalsstarter.entity.Product;
 import org.example.animalsstarter.service.CalculateService;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
