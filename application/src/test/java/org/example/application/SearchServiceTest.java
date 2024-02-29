@@ -3,7 +3,10 @@ package org.example.application;
 import org.example.animalsstarter.entity.animals.*;
 import org.example.animalsstarter.service.SearchServiceImpl;
 import org.example.animalsstarter.service.interfaces.SearchService;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -75,8 +78,8 @@ public class SearchServiceTest {
             Shark shark = new Shark("Shark", "shark", BigDecimal.valueOf(10000), "character",
                     LocalDate.of(2020, 1, 3));
 
-            Animal[] animals = {dog, cat, wolf, shark};
-            Assertions.assertArrayEquals(new String[]{"dog", "shark"}, searchService.findLeapYearNames(animals));
+            List<Animal> animals = List.of(dog, cat, wolf, shark);
+            assertEquals(List.of("dog", "shark"), searchService.findLeapYearNames(animals));
         }
 
         @ParameterizedTest
@@ -92,8 +95,8 @@ public class SearchServiceTest {
             Shark shark = new Shark("Shark", "shark", BigDecimal.valueOf(10000), "character",
                     LocalDate.of(2020, 1, 3));
 
-            Animal[] animals = {dog, cat, wolf, shark};
-            Assertions.assertArrayEquals(new Animal[]{dog, wolf}, searchService.findOlderAnimal(animals, age));
+            List<Animal> animals = List.of(dog, cat, wolf, shark);
+            assertEquals(List.of(dog, wolf), searchService.findOlderAnimal(animals, age));
         }
 
         @Test
@@ -116,10 +119,9 @@ public class SearchServiceTest {
             Shark shark1 = new Shark("Shark", "shark", BigDecimal.valueOf(10000), "character",
                     LocalDate.of(2020, 1, 3));
 
-            Animal[] animals = {dog, dog1, cat, cat1, wolf, wolf1, shark, shark1};
-            List<Animal> duplicates = searchService.findDuplicate(animals);
+            List<Animal> animals = List.of(dog, dog1, cat, cat1, wolf, wolf1, shark, shark1);
 
-            Assertions.assertArrayEquals(new Animal[]{cat, shark}, duplicates.toArray());
+            assertEquals(List.of(cat, shark), searchService.findDuplicate(animals));
         }
     }
 }

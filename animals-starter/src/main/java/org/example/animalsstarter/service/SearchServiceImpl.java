@@ -15,20 +15,17 @@ public class SearchServiceImpl implements SearchService {
      * @return массив имен животных
      */
     @Override
-    public String[] findLeapYearNames(Animal[] animals) {
-        int length = 0;
+    public List<String> findLeapYearNames(List<Animal> animals) {
+
+        List<String> resultList = new ArrayList<>();
+
         for (Animal animal : animals) {
             if (animal.getBirthDate().isLeapYear()) {
-                length++;
+                resultList.add(animal.getName());
             }
         }
-        String[] names = new String[length];
-        for (int i = 0, j = 0; i < animals.length; i++) {
-            if (animals[i].getBirthDate().isLeapYear()) {
-                names[j++] = animals[i].getName();
-            }
-        }
-        return names;
+
+        return resultList;
     }
 
     /**
@@ -38,20 +35,17 @@ public class SearchServiceImpl implements SearchService {
      * @return массив животных, старше N лет
      */
     @Override
-    public Animal[] findOlderAnimal(Animal[] animals, int age) {
-        int length = 0;
+    public List<Animal> findOlderAnimal(List<Animal> animals, int age) {
+
+        List<Animal> resultList = new ArrayList<>();
+
         for (Animal animal : animals) {
             if (LocalDate.now().getYear() - animal.getBirthDate().getYear() > age) {
-                length++;
+                resultList.add(animal);
             }
         }
-        Animal[] olderAnimals = new Animal[length];
-        for (int i = 0, j = 0; i < animals.length; i++) {
-            if (LocalDate.now().getYear() - animals[i].getBirthDate().getYear() > age) {
-                olderAnimals[j++] = animals[i];
-            }
-        }
-        return olderAnimals;
+
+        return resultList;
     }
 
     /**
@@ -59,16 +53,17 @@ public class SearchServiceImpl implements SearchService {
      * @param animals массив животных
      */
     @Override
-    public List<Animal> findDuplicate(Animal[] animals) {
+    public List<Animal> findDuplicate(List<Animal> animals) {
+
         List<Animal> resultAnimals = new ArrayList<>();
 
-        for (int i = 0; i < animals.length; i++) {
-            for (int j = i + 1; j < animals.length; j++) {
-                if (animals[i].equals(animals[j]) &&
+        for (int i = 0; i < animals.size(); i++) {
+            for (int j = i + 1; j < animals.size(); j++) {
+                if (animals.get(i).equals(animals.get(j)) &&
                         i != j &&
-                        !resultAnimals.contains(animals[i]) &&
-                        !resultAnimals.contains(animals[j])) {
-                    resultAnimals.add(animals[i]);
+                        !resultAnimals.contains(animals.get(i)) &&
+                        !resultAnimals.contains(animals.get(j))) {
+                    resultAnimals.add(animals.get(i));
                 }
             }
         }
@@ -77,7 +72,7 @@ public class SearchServiceImpl implements SearchService {
     }
 
     @Override
-    public void printDuplicate(Animal[] animals) {
+    public void printDuplicate(List<Animal> animals) {
         List<Animal> duplicateAnimals = findDuplicate(animals);
         duplicateAnimals.forEach(animal -> System.out.printf("Duplicate animal: %s\n", animal));
     }

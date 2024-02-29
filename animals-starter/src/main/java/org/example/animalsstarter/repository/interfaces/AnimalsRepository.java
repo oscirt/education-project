@@ -2,28 +2,32 @@ package org.example.animalsstarter.repository.interfaces;
 
 import org.example.animalsstarter.entity.animals.Animal;
 
-import java.util.List;
+import java.time.LocalDate;
+import java.util.Map;
 
 public interface AnimalsRepository {
 
     /**
      * Ищет имена всех животных, которые родились в високосный год
-     * @return массив имен животных
+     * @return Map с ключом, являющимся строкой с типом животного и его именем,
+     * и со значением, являющимся датой рождения животного
      */
-    String[] findLeapYearNames();
+    Map<String, LocalDate> findLeapYearNames();
 
     /**
      * Ищет всех животных, которые старше N лет
      * @param age граничный возраст
-     * @return массив животных
+     * @return Map с ключом, являющимся объектом животного,
+     * и со значением, являющимся возрастом животного
      */
-    Animal[] findOlderAnimal(int age);
+    Map<Animal, Integer> findOlderAnimal(int age);
 
     /**
      * Ищет всех повторяющихся животных и возвращает массив дубликатов
-     * @return массив дубликатов
+     * @return Map с ключом, являющимся типом животных
+     * и значением, являющимся количеством дубликатов
      */
-    List<Animal> findDuplicate();
+    Map<String, Integer> findDuplicate();
 
     /**
      * Выводит в консоль всех повторяющихся животных

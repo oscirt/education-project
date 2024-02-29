@@ -7,7 +7,7 @@ import org.example.animalsstarter.service.interfaces.CreateAnimalService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import java.util.Random;
+import java.util.*;
 
 @Service
 @Scope("prototype")
@@ -37,13 +37,15 @@ public class CreateAnimalServiceImpl implements CreateAnimalService {
      * @return 10 животных случайного типа
      */
     @Override
-    public Animal[] createAnimals() {
+    public Map<String, List<Animal>> createAnimals() {
+        Map<String, List<Animal>> resultMap = new HashMap<>();
+        List<Animal> animals = new ArrayList<>();
         int i = 0;
-        Animal[] animals = new Animal[10];
         do {
-            animals[i] = generateAnimal(animalType);
+            animals.add(generateAnimal(animalType));
         } while (++i < 10);
-        return animals;
+        resultMap.put(animalType.toString(), animals);
+        return resultMap;
     }
 
     public void initAnimalType() {
