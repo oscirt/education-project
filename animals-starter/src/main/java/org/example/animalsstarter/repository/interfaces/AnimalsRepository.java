@@ -3,6 +3,7 @@ package org.example.animalsstarter.repository.interfaces;
 import org.example.animalsstarter.entity.animals.Animal;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 
 public interface AnimalsRepository {
@@ -27,10 +28,30 @@ public interface AnimalsRepository {
      * @return Map с ключом, являющимся типом животных
      * и значением, являющимся количеством дубликатов
      */
-    Map<String, Integer> findDuplicate();
+    Map<String, List<Animal>> findDuplicate();
 
     /**
      * Выводит в консоль всех повторяющихся животных
      */
     void printDuplicate();
+
+    /**
+     * Находит и выводит на экран средний возраст всех животных
+     * @param animalList список животных
+     */
+    void findAverageAge(List<Animal> animalList);
+
+    /**
+     * Находит животных, возраст которых больше 5 лет, а стоимость больше средней стоимости всех животных
+     * @param animalList список животных
+     * @return отсортированный по дате рождения (по возрастанию) список
+     */
+    List<Animal> findOldAndExpensive(List<Animal> animalList);
+
+    /**
+     * Находит 3 животных с самой низкой ценой
+     * @param animalList список животных
+     * @return список имен, отсортированный в обратном алфавитном порядке
+     */
+    List<String> findMinConstAnimals(List<Animal> animalList);
 }
