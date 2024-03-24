@@ -2,6 +2,7 @@ package org.example.application;
 
 import org.example.animalsstarter.config.AnimalsProperties;
 import org.example.animalsstarter.entity.animals.*;
+import org.example.animalsstarter.exception.checked.WrongListArgumentException;
 import org.example.animalsstarter.repository.interfaces.AnimalsRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
@@ -52,7 +54,7 @@ public class AnimalsAppTest {
 
 
     @Test
-    public void findAverageAge() {
+    public void findAverageAge() throws WrongListArgumentException {
         List<Animal> animalList = List.of(
                 new Dog("1", "1", BigDecimal.valueOf(1), "1", LocalDate.of(2020, 10, 10)),
                 new Shark("1", "1", BigDecimal.valueOf(1), "1", LocalDate.of(2010, 10, 10))
@@ -61,7 +63,12 @@ public class AnimalsAppTest {
     }
 
     @Test
-    public void findOldAndExpensive1() {
+    public void findAverageAgeWithEmptyList() {
+        assertThrows(WrongListArgumentException.class, () -> animalsRepository.findAverageAge(List.of()));
+    }
+
+    @Test
+    public void findOldAndExpensive1() throws WrongListArgumentException {
         List<Animal> animalList = List.of(
                 new Dog("Dog", "dog", BigDecimal.valueOf(20), "character",
                         LocalDate.of(2000, 12, 13)),
@@ -77,7 +84,7 @@ public class AnimalsAppTest {
     }
 
     @Test
-    public void findOldAndExpensive2() {
+    public void findOldAndExpensive2() throws WrongListArgumentException {
         List<Animal> animalList = List.of(
                 new Dog("Dog", "dog", BigDecimal.valueOf(2000), "character",
                         LocalDate.of(2020, 12, 13)),
@@ -96,7 +103,7 @@ public class AnimalsAppTest {
     }
 
     @Test
-    public void findOldAndExpensive3() {
+    public void findOldAndExpensive3() throws WrongListArgumentException {
         List<Animal> animalList = List.of(
                 new Dog("Dog", "dog", BigDecimal.valueOf(2000), "character",
                         LocalDate.of(2002, 12, 13)),
@@ -118,7 +125,12 @@ public class AnimalsAppTest {
     }
 
     @Test
-    public void findMinConstAnimals() {
+    public void findOldAndExpensiveWithEmptyList() {
+        assertThrows(WrongListArgumentException.class, () -> animalsRepository.findOldAndExpensive(List.of()));
+    }
+
+    @Test
+    public void findMinCostAnimals() throws WrongListArgumentException {
         List<Animal> animalList = List.of(
                 new Dog("Dog", "dog", BigDecimal.valueOf(2000), "character",
                         LocalDate.of(2002, 12, 13)),
@@ -130,6 +142,16 @@ public class AnimalsAppTest {
                         LocalDate.of(2003, 1, 3))
         );
 
-        Assertions.assertEquals(List.of("shark", "dog", "cat"), animalsRepository.findMinConstAnimals(animalList));
+        Assertions.assertEquals(List.of("shark", "dog", "cat"), animalsRepository.findMinCostAnimals(animalList));
+    }
+
+    @Test
+    public void findMinCostAnimalsWithWrongListSize() {
+        assertThrows(WrongListArgumentException.class, () -> animalsRepository.findMinCostAnimals(List.of(
+                new Dog("Dog", "dog", BigDecimal.valueOf(2000), "character",
+                        LocalDate.of(2002, 12, 13)),
+                new Cat("Cat", "cat", BigDecimal.valueOf(1001), "character",
+                        LocalDate.of(2003, 3, 4))
+        )));
     }
 }
