@@ -1,6 +1,8 @@
 package org.example.animalsstarter.repository;
 
 import org.example.animalsstarter.entity.animals.Animal;
+import org.example.animalsstarter.exception.checked.WrongListArgumentException;
+import org.example.animalsstarter.exception.unchecked.WrongAgeArgumentException;
 import org.example.animalsstarter.repository.interfaces.AnimalsRepository;
 import org.example.animalsstarter.service.interfaces.CreateAnimalService;
 import org.springframework.stereotype.Repository;
@@ -30,12 +32,12 @@ public class AnimalsRepositoryImpl implements AnimalsRepository {
 
     /**
      * Ищет имена всех животных, которые родились в високосный год
+     *
      * @return Map с ключом, являющимся строкой с типом животного и его именем,
      * и со значением, являющимся датой рождения животного
      */
     @Override
     public Map<String, LocalDate> findLeapYearNames() {
-
         return animals.values().stream()
                 .flatMap(Collection::stream)
                 .filter(animal -> animal.getBirthDate().isLeapYear())
@@ -51,12 +53,16 @@ public class AnimalsRepositoryImpl implements AnimalsRepository {
 
     /**
      * Ищет всех животных, которые старше N лет
+     *
      * @param age граничный возраст
      * @return Map с ключом, являющимся объектом животного,
      * и со значением, являющимся возрастом животного
      */
     @Override
     public Map<Animal, Integer> findOlderAnimal(int age) {
+        if (age < 0) {
+            throw new WrongAgeArgumentException(String.format("Age less than 0: %s", age));
+        }
 
         Map<Animal, Integer> resultMap = animals.values().stream()
                 .flatMap(Collection::stream)
@@ -83,14 +89,13 @@ public class AnimalsRepositoryImpl implements AnimalsRepository {
     }
 
 
-
     /**
      * Ищет всех повторяющихся животных и возвращает массив дубликатов
+     *
      * @return Map с ключом, являющимся типом животных
      * и значением, являющимся количеством дубликатов
      */
     public Map<String, List<Animal>> findDuplicate() {
-
         return animals.values().stream()
                 .flatMap(Collection::stream)
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
@@ -118,32 +123,38 @@ public class AnimalsRepositoryImpl implements AnimalsRepository {
 
     /**
      * Находит и выводит на экран средний возраст всех животных
+     *
      * @param animalList список животных
      */
     @Override
-    public void findAverageAge(List<Animal> animalList) {
+    public void findAverageAge(List<Animal> animalList) throws WrongListArgumentException {
+        if (animalList.isEmpty()) {
+            throw new WrongListArgumentException("Animal list is empty");
+        }
+
         Double averageAnimalYear = animalList.stream()
-                .collect(
-                        Collectors.averagingInt(
-                                animal -> LocalDate.now().getYear() - animal.getBirthDate().getYear()
-                        )
-                );
-        System.out.printf("Средний возраст животных: %f", averageAnimalYear);
+                .collect(Collectors.averagingInt(
+                        animal -> LocalDate.now().getYear() - animal.getBirthDate().getYear()
+                ));
+        System.out.printf("Средний возраст животных: %f\n", averageAnimalYear);
     }
 
     /**
      * Находит животных, возраст которых больше 5 лет, а стоимость больше средней стоимости всех животных
+     *
      * @param animalList список животных
      * @return отсортированный по дате рождения (по возрастанию) список
      */
     @Override
-    public List<Animal> findOldAndExpensive(List<Animal> animalList) {
+    public List<Animal> findOldAndExpensive(List<Animal> animalList) throws WrongListArgumentException {
+        if (animalList.isEmpty()) {
+            throw new WrongListArgumentException("Animal list is empty");
+        }
+
         Double avgPrice = animalList.stream()
-                .collect(
-                        Collectors.averagingDouble(
-                                animal -> animal.getCost().doubleValue()
-                        )
-                );
+                .collect(Collectors.averagingDouble(
+                        animal -> animal.getCost().doubleValue()
+                ));
 
         return animalList.stream()
                 .filter(animal -> LocalDate.now().getYear() - animal.getBirthDate().getYear() > 5 &&
@@ -154,16 +165,42 @@ public class AnimalsRepositoryImpl implements AnimalsRepository {
 
     /**
      * Находит 3 животных с самой низкой ценой
+     *
      * @param animalList список животных
      * @return список имен, отсортированный в обратном алфавитном порядке
      */
     @Override
-    public List<String> findMinConstAnimals(List<Animal> animalList) {
+    public List<String> findMinCostAnimals(List<Animal> animalList) throws WrongListArgumentException {
+        if (animalList.size() < 3) {
+            throw new WrongListArgumentException("Animal list size less than 3");
+        }
+
         return animalList.stream()
                 .sorted((Animal a1, Animal a2) -> a2.getCost().intValue() - a1.getCost().intValue())
                 .limit(3)
                 .sorted((Animal a1, Animal a2) -> -a1.getName().compareTo(a2.getName()))
                 .map(Animal::getName)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void findAverageAge() throws WrongListArgumentException {
+        List<Animal> animalList = animals.values().stream()
+                .flatMap(Collection::stream).collect(Collectors.toList());
+        findAverageAge(animalList);
+    }
+
+    @Override
+    public List<Animal> findOldAndExpensive() throws WrongListArgumentException {
+        List<Animal> animalList = animals.values().stream()
+                .flatMap(Collection::stream).collect(Collectors.toList());
+        return findOldAndExpensive(animalList);
+    }
+
+    @Override
+    public List<String> findMinCostAnimals() throws WrongListArgumentException {
+        List<Animal> animalList = animals.values().stream()
+                .flatMap(Collection::stream).collect(Collectors.toList());
+        return findMinCostAnimals(animalList);
     }
 }
